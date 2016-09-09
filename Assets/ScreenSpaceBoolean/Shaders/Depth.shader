@@ -1,4 +1,4 @@
-﻿Shader "ScreenSpaceBoolean/FrontBack"
+﻿Shader "ScreenSpaceBoolean/Depth"
 {
 
 SubShader
@@ -26,6 +26,12 @@ struct v2f
 {
     float4 vertex : SV_POSITION;
     float4 spos : TEXCOORD0;
+};
+
+struct gbuffer_out 
+{
+    half4 color : SV_Target;
+    float depth : SV_Depth;
 };
 
 v2f vert(appdata v)

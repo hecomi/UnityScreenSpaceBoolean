@@ -29,6 +29,7 @@ public class SubtractionRenderer : MonoBehaviour
     }
 
     [SerializeField] Material compositeMaterial;
+    [SerializeField, Range(1, 2)] int maskDrawNum = 1;
 
     Mesh GenerateQuad()
     {
@@ -135,8 +136,10 @@ public class SubtractionRenderer : MonoBehaviour
             subtractee.IssueDrawFront(cb);
         }
 
-        foreach (var subtractor in Subtractor.GetAll()) {
-            subtractor.IssueDrawMask(cb);
+        for (int i = 0; i < maskDrawNum; ++i) {
+            foreach (var subtractor in Subtractor.GetAll()) {
+                subtractor.IssueDrawMask(cb);
+            }
         }
 
         cb.SetRenderTarget(BuiltinRenderTextureType.CameraTarget);
