@@ -54,15 +54,10 @@ gbuffer_out frag_depth(v2f i)
     float subtracteeBackDepth = tex2D(_SubtracteeBackDepth, uv);
     float subtractorBackDepth = ComputeDepth(i.spos);
 
-    float depth;
-    if (subtractorBackDepth <= subtracteeBackDepth) {
-        depth = subtractorBackDepth;
-    } else {
-        depth = 1.0;
-    }
+    if (subtractorBackDepth <= subtracteeBackDepth) discard; 
 
     gbuffer_out o;
-    o.color = o.depth = depth;
+    o.color = o.depth = 1.0;
     return o;
 }
 ENDCG
