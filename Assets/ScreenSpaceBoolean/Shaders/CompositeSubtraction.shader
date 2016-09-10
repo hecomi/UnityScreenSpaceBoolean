@@ -39,7 +39,7 @@ gbuffer_out frag(v2f i)
 
     gbuffer_out o;
     o.color = o.depth = tex2D(_SubtractionDepth, uv).x;
-    if (o.depth == 0.0) discard;
+    if (o.depth == 1.0) discard;
 
     return o;
 }
