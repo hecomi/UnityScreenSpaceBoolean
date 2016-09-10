@@ -28,12 +28,6 @@ struct v2f
     float4 spos : TEXCOORD0;
 };
 
-struct gbuffer_out 
-{
-    half4 color : SV_Target;
-    float depth : SV_Depth;
-};
-
 v2f vert(appdata v)
 {
     v2f o;
