@@ -7,6 +7,10 @@ Reference
 ---------
 - [i-saint/Unity5Effects](https://github.com/i-saint/Unity5Effects)
 
+Article
+-------
+- [Unity でスクリーンスペースのブーリアン演算をやってみた - 凹みTips](http://tips.hecomi.com/entry/2016/09/10/191006)
+
 License
 -------
 The MIT License (MIT)
