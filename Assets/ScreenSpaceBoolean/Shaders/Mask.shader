@@ -54,92 +54,97 @@ gbuffer_out frag_depth(v2f i)
     float subtracteeBackDepth = tex2D(_SubtracteeBackDepth, uv);
     float subtractorBackDepth = ComputeDepth(i.spos);
 
-    if (subtractorBackDepth <= subtracteeBackDepth) discard; 
+    float depth;
+    if (subtractorBackDepth <= subtracteeBackDepth) {
+        depth = subtractorBackDepth;
+    } else {
+        depth = 1.0;
+    }
 
     gbuffer_out o;
-    o.color = o.depth = 1.0;
+    o.color = o.depth = depth;
     return o;
 }
 ENDCG
 
 Pass 
 {
-	Stencil 
-	{
-		Ref 1
-		Comp Always
-		Pass Replace
-	}
+    Stencil 
+    {
+        Ref 1
+        Comp Always
+        Pass Replace
+    }
 
-	Cull Back
-	ZTest Less
-	ZWrite Off
-	ColorMask 0
+    Cull Back
+    ZTest Less
+    ZWrite Off
+    ColorMask 0
 
-	CGPROGRAM
-	#pragma target 3.0
-	#pragma vertex vert
-	#pragma fragment frag
-	ENDCG
+    CGPROGRAM
+    #pragma target 3.0
+    #pragma vertex vert
+    #pragma fragment frag
+    ENDCG
 }
 
 Pass 
 {
-	Stencil 
-	{
-		Ref 1
-		Comp Equal
-	}
+    Stencil 
+    {
+        Ref 1
+        Comp Equal
+    }
 
-	Cull Front
-	ZTest Greater
-	ZWrite On
+    Cull Front
+    ZTest Greater
+    ZWrite On
 
-	CGPROGRAM
-	#pragma target 3.0
-	#pragma vertex vert
-	#pragma fragment frag
-	ENDCG
+    CGPROGRAM
+    #pragma target 3.0
+    #pragma vertex vert
+    #pragma fragment frag
+    ENDCG
 }
 
 Pass 
 {
-	Stencil 
-	{
-		Ref 1
-		Comp Equal
-	}
+    Stencil 
+    {
+        Ref 1
+        Comp Equal
+    }
 
-	Cull Front
-	ZTest Greater
-	ZWrite On
+    Cull Front
+    ZTest Greater
+    ZWrite On
 
-	CGPROGRAM
-	#pragma target 3.0
-	#pragma vertex vert
-	#pragma fragment frag_depth
-	ENDCG
+    CGPROGRAM
+    #pragma target 3.0
+    #pragma vertex vert
+    #pragma fragment frag_depth
+    ENDCG
 }
 
 Pass 
 {
-	Stencil 
-	{
-		Ref 0
-		Comp Always
-		Pass Replace
-	}
+    Stencil 
+    {
+        Ref 0
+        Comp Always
+        Pass Replace
+    }
 
-	Cull Back
-	ZTest Always
-	ZWrite Off
-	ColorMask 0
+    Cull Back
+    ZTest Always
+    ZWrite Off
+    ColorMask 0
 
-	CGPROGRAM
-	#pragma target 3.0
-	#pragma vertex vert
-	#pragma fragment frag
-	ENDCG
+    CGPROGRAM
+    #pragma target 3.0
+    #pragma vertex vert
+    #pragma fragment frag
+    ENDCG
 }
 
 }

@@ -48,15 +48,15 @@ ENDCG
 
 Pass 
 {
-	Cull Off
-	ZTest LEqual
-	ZWrite On
-	ColorMask 0
+    Cull Off
+    ZTest LEqual
+    ZWrite On
+    ColorMask 0
 
-	CGPROGRAM
-	#pragma vertex vert
-	#pragma fragment frag
-	ENDCG
+    CGPROGRAM
+    #pragma vertex vert
+    #pragma fragment frag
+    ENDCG
 }
 
 }

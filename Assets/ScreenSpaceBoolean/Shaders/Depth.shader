@@ -51,26 +51,26 @@ ENDCG
 
 Pass 
 {
-	Cull Back
-	ZTest Less
-	ZWrite On
+    Cull Back
+    ZTest Less
+    ZWrite On
 
-	CGPROGRAM
-	#pragma vertex vert
-	#pragma fragment frag
-	ENDCG
+    CGPROGRAM
+    #pragma vertex vert
+    #pragma fragment frag
+    ENDCG
 }
 
 Pass 
 {
-	Cull Front
-	ZTest Greater
-	ZWrite On
+    Cull Front
+    ZTest Greater
+    ZWrite On
 
-	CGPROGRAM
-	#pragma vertex vert
-	#pragma fragment frag
-	ENDCG
+    CGPROGRAM
+    #pragma vertex vert
+    #pragma fragment frag
+    ENDCG
 }
 
 }

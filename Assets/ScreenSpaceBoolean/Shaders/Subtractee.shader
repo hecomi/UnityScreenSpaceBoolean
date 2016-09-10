@@ -14,13 +14,13 @@ CGINCLUDE
 struct appdata
 {
     float4 vertex : POSITION;
-	float3 normal : NORMAL;
+    float3 normal : NORMAL;
 };
 
 struct v2f
 {
-	float4 position : SV_POSITION;
-	float3 normal : NORMAL;
+    float4 position : SV_POSITION;
+    float3 normal : NORMAL;
 };
 
 struct v2f_shadow
@@ -41,7 +41,7 @@ v2f vert(appdata v)
 {
     v2f o;
     o.position = mul(UNITY_MATRIX_MVP, v.vertex);
-	o.normal = mul(unity_ObjectToWorld, v.normal) * 0.5 + 0.5;
+    o.normal = mul(unity_ObjectToWorld, v.normal) * 0.5 + 0.5;
     return o;
 }
 
@@ -55,17 +55,17 @@ v2f_shadow vert_shadow(appdata v)
 
 gbuffer_out frag(v2f i)
 {
-	gbuffer_out o;
+    gbuffer_out o;
 
-	o.diffuse = float4(1.0, 0.0, 0.0, 1.0);
-	o.specular = float4(1.0, 0.0, 0.0, 1.0);
-	o.normal = float4(i.normal, 1.0);
-	o.emission = float4(0.0, 0.0, 0.0, 1.0);
+    o.diffuse = float4(1.0, 0.0, 0.0, 1.0);
+    o.specular = float4(1.0, 0.0, 0.0, 1.0);
+    o.normal = float4(i.normal, 1.0);
+    o.emission = float4(0.0, 0.0, 0.0, 1.0);
 #ifndef UNITY_HDR_ON
     o.emission = exp2(-o.emission);
 #endif
 
-	return o;
+    return o;
 }
 
 float4 frag_shadow(v2f_shadow i) : SV_Target
@@ -96,17 +96,17 @@ Pass
 
 Pass
 {
-	Tags { "LightMode" = "Deferred" }
+    Tags { "LightMode" = "Deferred" }
 
-	ZWrite Off
-	Cull Back
-	ZTest Equal
+    ZWrite Off
+    Cull Back
+    ZTest Equal
 
     CGPROGRAM
     #pragma target 3.0
     #pragma vertex vert 
     #pragma fragment frag 
-	#pragma multi_compile ___ UNITY_HDR_ON
+    #pragma multi_compile ___ UNITY_HDR_ON
     ENDCG
 }
 
