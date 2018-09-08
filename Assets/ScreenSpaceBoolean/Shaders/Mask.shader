@@ -38,7 +38,7 @@ sampler2D _SubtracteeBackDepth;
 v2f vert(appdata v)
 {
     v2f o;
-    o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+    o.vertex = UnityObjectToClipPos(v.vertex);
     o.spos = ComputeScreenPos(o.vertex);
     return o;
 }
@@ -54,10 +54,15 @@ gbuffer_out frag_depth(v2f i)
     float subtracteeBackDepth = tex2D(_SubtracteeBackDepth, uv);
     float subtractorBackDepth = ComputeDepth(i.spos);
 
-    if (subtractorBackDepth <= subtracteeBackDepth) discard; 
-
-    gbuffer_out o;
-    o.color = o.depth = 1.0;
+	gbuffer_out o;
+#if defined(UNITY_REVERSED_Z)
+    if (subtractorBackDepth >= subtracteeBackDepth) discard;
+	o.color = o.depth = 0.0;
+#else
+	if (subtractorBackDepth <= subtracteeBackDepth) discard;
+	o.color = o.depth = 1.0;
+#endif
+    
     return o;
 }
 ENDCG
