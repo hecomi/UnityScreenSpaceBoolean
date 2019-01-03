@@ -10,7 +10,7 @@ CGINCLUDE
 
 float ComputeDepth(float4 spos)
 {
-#if defined(UNITY_UV_STARTS_AT_TOP) 
+#if defined(UNITY_UV_STARTS_AT_TOP)
     return (spos.z / spos.w);
 #else
     return (spos.z / spos.w) * 0.5 + 0.5;
@@ -31,7 +31,7 @@ struct v2f
 v2f vert(appdata v)
 {
     v2f o;
-    o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
+    o.vertex = UnityObjectToClipPos(v.vertex);
     o.spos = ComputeScreenPos(o.vertex);
     return o;
 }
@@ -43,7 +43,7 @@ float4 frag(v2f i) : SV_Target
 
 ENDCG
 
-Pass 
+Pass
 {
     Cull Back
     ZTest Less
@@ -55,7 +55,7 @@ Pass
     ENDCG
 }
 
-Pass 
+Pass
 {
     Cull Front
     ZTest Greater

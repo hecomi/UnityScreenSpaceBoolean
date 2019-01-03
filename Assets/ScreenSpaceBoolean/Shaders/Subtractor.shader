@@ -1,7 +1,7 @@
 ﻿Shader "ScreenSpaceBoolean/Subtractor"
 {
 
-SubShader 
+SubShader
 {
 
 Tags { "RenderType"="Opaque" "PerformanceChecks"="False" "Queue"="Geometry-100" "DisableBatching"="True" }
@@ -34,7 +34,7 @@ struct gbuffer_out
 v2f vert(appdata v)
 {
     v2f o;
-    o.position = mul(UNITY_MATRIX_MVP, v.vertex);
+    o.position = UnityObjectToClipPos(v.vertex);
     o.normal = mul(unity_ObjectToWorld, -v.normal) * 0.5 + 0.5;
     return o;
 }
@@ -66,8 +66,8 @@ Pass
 
     CGPROGRAM
     #pragma target 3.0
-    #pragma vertex vert 
-    #pragma fragment frag 
+    #pragma vertex vert
+    #pragma fragment frag
     #pragma multi_compile ___ UNITY_HDR_ON
     ENDCG
 }
